@@ -1,0 +1,13 @@
+
+modLoader="javafml"
+loaderVersion="[40,)"
+license="GNU General Public License 3.0"
+[[mods]]
+modId="compost"
+version="${file.jarVersion}"
+displayName="Compost"
+logoFile="compost.png"
+authors="yurisuika"
+description='''
+Composters compost organic materials into dirt!
+'''
