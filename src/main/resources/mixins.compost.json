@@ -1,11 +1,11 @@
 {
   "required": true,
   "package": "com.yurisuika.compost.mixin",
-  "compatibilityLevel": "JAVA_16",
+  "compatibilityLevel": "JAVA_8",
   "refmap": "compost.refmap.json",
   "mixins": [
     "world.level.block.ComposterBlockMixin",
-    "world.level.block.ComposterBlockOutputContainerMixin"
+    "world.level.block.ComposterBlockFullInventoryMixin"
   ],
   "client": [
   ],

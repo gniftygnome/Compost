@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[37,)"
+loaderVersion="[36,)"
 license="GNU General Public License 3.0"
 [[mods]]
 modId="compost"
@@ -13,6 +13,6 @@ Composters compost organic materials into dirt!
 [[dependencies.dyed]]
     modId="forge"
     mandatory=true
-    versionRange="[37,)"
+    versionRange="[36,)"
     ordering="AFTER"
     side="CLIENT"

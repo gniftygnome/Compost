@@ -22,7 +22,7 @@ version = project.mod_version
 group = project.maven_group
 archivesBaseName = project.archives_base_name
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 mixin {
     add sourceSets.main, archivesBaseName + ".refmap.json"
