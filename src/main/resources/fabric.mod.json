@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Compost",
-  "description": "Composters compost organic materials into dirt!",
+  "description": "Make composters turn your food waste into whatever you want!",
   "authors": [
     "yurisuika"
   ],
