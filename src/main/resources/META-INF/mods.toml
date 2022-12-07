@@ -10,7 +10,7 @@ authors="yurisuika"
 description='''
 Composters compost organic materials into dirt!
 '''
-[[dependencies.dyed]]
+[[dependencies.compost]]
     modId="forge"
     mandatory=true
     versionRange="[37,)"
