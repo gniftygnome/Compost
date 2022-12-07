@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[41,)"
+loaderVersion="[43,)"
 license="GNU General Public License 3.0"
 [[mods]]
 modId="compost"
@@ -8,11 +8,11 @@ displayName="Compost"
 logoFile="compost.png"
 authors="yurisuika"
 description='''
-Composters compost organic materials into dirt!
+Make composters turn your food waste into whatever you want!
 '''
-[[dependencies.dyed]]
+[[dependencies.compost]]
     modId="forge"
     mandatory=true
-    versionRange="[41,)"
+    versionRange="[43,)"
     ordering="AFTER"
     side="CLIENT"

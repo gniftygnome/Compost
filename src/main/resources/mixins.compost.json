@@ -4,8 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "compost.refmap.json",
   "mixins": [
-    "world.level.block.ComposterBlockMixin",
-    "world.level.block.ComposterBlockOutputContainerMixin"
+    "world.level.block.ComposterBlockMixin"
   ],
   "client": [
   ],
