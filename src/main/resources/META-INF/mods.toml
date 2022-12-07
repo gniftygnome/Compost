@@ -8,9 +8,9 @@ displayName="Compost"
 logoFile="compost.png"
 authors="yurisuika"
 description='''
-Composters compost organic materials into dirt!
+Make composters turn your food waste into whatever you want!
 '''
-[[dependencies.dyed]]
+[[dependencies.compost]]
     modId="forge"
     mandatory=true
     versionRange="[36,)"
