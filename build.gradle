@@ -57,11 +57,20 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+//    maven { url "https://maven.architectury.dev" }
+    maven { url "https://cursemaven.com" }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:' + project.minecraft_version + '-' + project.forge_version
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+//    compileOnly 'me.shedaniel:RoughlyEnoughItems-api-forge:6.5.436'
+//    compileOnly 'me.shedaniel:RoughlyEnoughItems-default-plugin-forge:6.5.436'
+//    compileOnly 'me.shedaniel:RoughlyEnoughItems-forge:6.5.436'
+    compileOnly 'curse.maven:roughly-enough-items-310111:3666923'
+    compileOnly 'curse.maven:architectury-api-419699:3857643'
+    compileOnly 'curse.maven:cloth-config-348521:3972422'
 }
 
 jar {

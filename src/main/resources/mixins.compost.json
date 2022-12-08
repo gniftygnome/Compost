@@ -7,9 +7,11 @@
     "world.block.ComposterBlockMixin"
   ],
   "client": [
+    "mods.RoughlyEnoughItemsMixin$DefaultClientPluginMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
+  "plugin": "com.yurisuika.compost.CompostMixinPlugin",
   "minVersion": "0.8"
 }
