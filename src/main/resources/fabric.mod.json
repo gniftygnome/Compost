@@ -22,6 +22,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
+      "com.yurisuika.compost.Compost"
+    ],
+    "rei_client": [
+      "com.yurisuika.compost.integration.roughlyenoughitems.CompostClientPlugin"
     ]
   },
   "mixins": [
