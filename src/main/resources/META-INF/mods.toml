@@ -16,3 +16,9 @@ Make composters turn your food waste into whatever you want!
     versionRange="[43,)"
     ordering="AFTER"
     side="CLIENT"
+[[dependencies.compost]]
+    modId="roughlyenoughitems"
+    mandatory=false
+    versionRange="[9,)"
+    ordering="NONE"
+    side="CLIENT"
