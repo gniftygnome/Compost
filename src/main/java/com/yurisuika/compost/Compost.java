@@ -15,8 +15,8 @@ import java.io.FileWriter;
 import java.nio.file.Files;
 
 @Mod("compost")
-public class Compost
-{
+public class Compost {
+
     private static final Logger LOGGER = LoggerFactory.getLogger("compost");
 
     public static File file = new File(FMLPaths.CONFIGDIR.get().toFile(), "compost.json");
@@ -29,8 +29,7 @@ public class Compost
             FileWriter fileWriter = new FileWriter(file);
             fileWriter.write(gson.toJson(getConfig()));
             fileWriter.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -56,14 +55,12 @@ public class Compost
         return config;
     }
 
-    public Compost()
-    {
+    public Compost() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    private void setup(final FMLCommonSetupEvent event)
-    {
+    private void setup(final FMLCommonSetupEvent event) {
         LOGGER.info("Loading Compost!");
 
         if (!file.exists()) {
