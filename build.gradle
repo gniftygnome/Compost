@@ -57,11 +57,16 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    maven { url "https://maven.architectury.dev" }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:' + project.minecraft_version + '-' + project.forge_version
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    compileOnly 'me.shedaniel:RoughlyEnoughItems-api-forge:8.3.576'
+    compileOnly 'me.shedaniel:RoughlyEnoughItems-default-plugin-forge:8.3.576'
+    compileOnly 'me.shedaniel:RoughlyEnoughItems-forge:8.3.576'
 }
 
 jar {
