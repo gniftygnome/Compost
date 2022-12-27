@@ -6,7 +6,8 @@
   "mixins": [
     "block.ComposterBlockInvoker",
     "block.ComposterBlockMixin",
-    "block.entity.HopperBlockEntityMixin"
+    "block.entity.HopperBlockEntityMixin",
+    "command.argument.ItemStackArgumentAccessor"
   ],
   "client": [
     "mods.RoughlyEnoughItemsMixin$DefaultClientPluginMixin"

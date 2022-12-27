@@ -5,6 +5,8 @@ import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.yurisuika.compost.Compost;
+import com.yurisuika.compost.mixin.command.argument.ItemStackArgumentAccessor;
 import net.minecraft.command.argument.ItemStackArgument;
 import net.minecraft.command.argument.ItemStackArgumentType;
 import net.minecraft.item.Item;
@@ -15,10 +17,13 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.util.registry.RegistryKey;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Objects;
 
 import static com.yurisuika.compost.Compost.*;
 import static net.minecraft.server.command.CommandManager.*;
@@ -219,7 +224,11 @@ public class CompostCommand {
                                                                 .executes(context -> {
                                                                     ItemStackArgument arg = ItemStackArgumentType.getItemStackArgument(context, "item");
                                                                     ItemStack itemStack = arg.createStack(1, false);
-                                                                    String item = arg.asString();
+                                                                    StringBuilder stringBuilder = new StringBuilder(Objects.requireNonNull(arg.getItem().getRegistryEntry().getKey().map(RegistryKey::getValue).orElseGet(() -> Identifier.tryParse("unknown[" + arg.getItem() + "]"))).toString());
+                                                                    if (((ItemStackArgumentAccessor) arg).getNbt() != null) {
+                                                                        stringBuilder.append(((ItemStackArgumentAccessor) arg).getNbt());
+                                                                    }
+                                                                    String item = stringBuilder.toString();
                                                                     double chance = Math.max(0.0D, Math.min(DoubleArgumentType.getDouble(context, "chance"), 1.0D));
                                                                     int maxCount = itemStack.getMaxCount();
                                                                     int max = Math.min(IntegerArgumentType.getInteger(context, "max"), maxCount);
@@ -249,7 +258,11 @@ public class CompostCommand {
                                                                                 int number = IntegerArgumentType.getInteger(context, "group") - 1;
                                                                                 ItemStackArgument arg = ItemStackArgumentType.getItemStackArgument(context, "item");
                                                                                 ItemStack itemStack = arg.createStack(1, false);
-                                                                                String item = arg.asString();
+                                                                                StringBuilder stringBuilder = new StringBuilder(Objects.requireNonNull(arg.getItem().getRegistryEntry().getKey().map(RegistryKey::getValue).orElseGet(() -> Identifier.tryParse("unknown[" + arg.getItem() + "]"))).toString());
+                                                                                if (((ItemStackArgumentAccessor) arg).getNbt() != null) {
+                                                                                    stringBuilder.append(((ItemStackArgumentAccessor) arg).getNbt());
+                                                                                }
+                                                                                String item = stringBuilder.toString();
                                                                                 double chance = Math.max(0.0D, Math.min(DoubleArgumentType.getDouble(context, "chance"), 1.0D));
                                                                                 int maxCount = itemStack.getMaxCount();
                                                                                 int max = Math.min(IntegerArgumentType.getInteger(context, "max"), maxCount);
@@ -281,7 +294,11 @@ public class CompostCommand {
                                                                                 int number = IntegerArgumentType.getInteger(context, "group") - 1;
                                                                                 ItemStackArgument arg = ItemStackArgumentType.getItemStackArgument(context, "item");
                                                                                 ItemStack itemStack = arg.createStack(1, false);
-                                                                                String item = arg.asString();
+                                                                                StringBuilder stringBuilder = new StringBuilder(Objects.requireNonNull(arg.getItem().getRegistryEntry().getKey().map(RegistryKey::getValue).orElseGet(() -> Identifier.tryParse("unknown[" + arg.getItem() + "]"))).toString());
+                                                                                if (((ItemStackArgumentAccessor) arg).getNbt() != null) {
+                                                                                    stringBuilder.append(((ItemStackArgumentAccessor) arg).getNbt());
+                                                                                }
+                                                                                String item = stringBuilder.toString();
                                                                                 double chance = Math.max(0.0D, Math.min(DoubleArgumentType.getDouble(context, "chance"), 1.0D));
                                                                                 int maxCount = itemStack.getMaxCount();
                                                                                 int max = Math.min(IntegerArgumentType.getInteger(context, "max"), maxCount);
