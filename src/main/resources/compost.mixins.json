@@ -4,7 +4,10 @@
   "package": "com.yurisuika.compost.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "blocks.ComposterBlockMixin"
+    "block.ComposterBlockInvoker",
+    "block.ComposterBlockMixin",
+    "block.entity.HopperBlockEntityMixin",
+    "command.argument.ItemStackArgumentAccessor"
   ],
   "client": [
     "mods.RoughlyEnoughItemsMixin$DefaultPluginMixin"

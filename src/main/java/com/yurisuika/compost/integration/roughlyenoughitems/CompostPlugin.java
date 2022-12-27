@@ -2,7 +2,6 @@ package com.yurisuika.compost.integration.roughlyenoughitems;
 
 import com.google.common.collect.Iterators;
 import com.yurisuika.compost.Compost;
-import com.yurisuika.compost.CompostConfig;
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 import me.shedaniel.rei.api.RecipeHelper;
 import me.shedaniel.rei.api.plugins.REIPluginV0;
@@ -15,9 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Environment(EnvType.CLIENT)
 public class CompostPlugin implements REIPluginV0 {
@@ -25,7 +22,7 @@ public class CompostPlugin implements REIPluginV0 {
     @Override
     public void registerRecipeDisplays(RecipeHelper recipeHelper) {
         Object2FloatMap<ItemConvertible> compostables = ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE;
-        for (CompostConfig.Group group : Compost.config.items) {
+        Arrays.stream(Compost.config.items).forEach(group -> {
             int i = 0;
             Iterator<List<Object2FloatMap.Entry<ItemConvertible>>> iterator = Iterators.partition(compostables.object2FloatEntrySet().stream().sorted(Map.Entry.comparingByValue()).iterator(), 48);
             while (iterator.hasNext()) {
@@ -33,7 +30,7 @@ public class CompostPlugin implements REIPluginV0 {
                 recipeHelper.registerDisplay(new DefaultCompostingDisplay(i, entries, compostables, new ItemStack(Registry.ITEM.get(new Identifier(group.item)))));
                 i++;
             }
-        }
+        });
     }
 
     @Override

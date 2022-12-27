@@ -2,8 +2,14 @@ package com.yurisuika.compost;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.yurisuika.compost.server.command.CompostCommand;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,6 +18,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class Compost implements ModInitializer {
@@ -21,7 +28,18 @@ public class Compost implements ModInitializer {
     public static File file = new File(FabricLoader.getInstance().getConfigDir().toFile(), "compost.json");
     public static Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting().create();
 
-    public static CompostConfig config = new CompostConfig();
+    public static Config config = new Config();
+
+    public static class Config {
+
+        public boolean shuffle = true;
+
+        public Group[] items = {
+                new Group("minecraft:dirt", 1.0D, 1,1),
+                new Group("minecraft:bone_meal", 1.0D, 1, 1)
+        };
+
+    }
 
     public static void saveConfig() {
         try {
@@ -33,7 +51,7 @@ public class Compost implements ModInitializer {
         }
     }
 
-    static void loadConfig() {
+    public static void loadConfig() {
         try {
             if (file.exists()) {
                 StringBuilder contentBuilder = new StringBuilder();
@@ -42,22 +60,87 @@ public class Compost implements ModInitializer {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                config = gson.fromJson(contentBuilder.toString(), CompostConfig.class);
+                config = gson.fromJson(contentBuilder.toString(), Config.class);
             } else {
-                config = new CompostConfig();
+                config = new Config();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        checkBounds();
         setConfig(config);
     }
 
-    public static void setConfig(CompostConfig config) {
+    public static void setConfig(Config config) {
         Compost.config = config;
     }
 
-    public static CompostConfig getConfig() {
+    public static Config getConfig() {
         return config;
+    }
+
+    public static void checkBounds() {
+        Arrays.stream(Compost.config.items).forEach(group -> {
+            Item item;
+            int index;
+            if (group.item.contains("{")) {
+                index = group.item.indexOf("{");
+                String id = group.item.substring(0, index);
+                item = Registry.ITEM.get(new Identifier(id));
+            } else {
+                item = Registry.ITEM.get(new Identifier(group.item));
+            }
+            group.chance = Math.max(0.0D, Math.min(group.chance, 1.0D));
+            int maxCount = item.getMaxCount();
+            group.max = Math.min(group.max, maxCount);
+            group.min = Math.min(Math.min(group.min, maxCount), group.max);
+        });
+        saveConfig();
+    }
+
+    public static void setShuffle(boolean bool) {
+        config.shuffle = bool;
+        saveConfig();
+    }
+
+    public static void setGroup(int group, String item, double chance, int min, int max) {
+        config.items[group] = new Group(item, chance, min, max);
+        saveConfig();
+    }
+
+    public static Group getGroup(int group) {
+        return config.items[group];
+    }
+
+    public static void addGroup(String item, double chance, int min, int max) {
+        config.items = ArrayUtils.add(config.items, new Group(item, chance, min, max));
+        saveConfig();
+    }
+
+    public static void removeGroup(int group) {
+        config.items = ArrayUtils.remove(config.items, group);
+        saveConfig();
+    }
+
+    public static void reverseGroups() {
+        ArrayUtils.reverse(config.items);
+        saveConfig();
+    }
+
+    public static class Group {
+
+        public String item;
+        public double chance;
+        public int min;
+        public int max;
+
+        Group(String item, double chance, int min, int max) {
+            this.item = item;
+            this.chance = chance;
+            this.min = min;
+            this.max = max;
+        }
+
     }
 
     @Override
@@ -68,6 +151,8 @@ public class Compost implements ModInitializer {
             saveConfig();
         }
         loadConfig();
+
+        CommandRegistrationCallback.EVENT.register(CompostCommand::register);
     }
 
 }
