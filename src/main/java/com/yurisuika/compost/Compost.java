@@ -153,7 +153,7 @@ public class Compost {
     public static class ForgeEvents {
 
         @SubscribeEvent
-        private void onCommandsRegister(RegisterCommandsEvent event) {
+        public static void onCommandsRegister(RegisterCommandsEvent event) {
             CompostCommand.register(event.getDispatcher());
         }
 

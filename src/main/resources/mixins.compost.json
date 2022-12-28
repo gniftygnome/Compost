@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "compost.refmap.json",
   "mixins": [
+    "command.arguments.item.ItemInputAccessor",
     "world.level.block.ComposterBlockInvoker",
     "world.level.block.ComposterBlockMixin",
     "world.level.block.entity.HopperBlockEntityMixin"
