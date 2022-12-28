@@ -22,8 +22,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 import static com.yurisuika.compost.Compost.*;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.server.command.CommandManager.*;
 
 public class CompostCommand {
 
