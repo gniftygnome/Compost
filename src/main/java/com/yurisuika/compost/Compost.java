@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
 import com.yurisuika.compost.server.commands.CompostCommand;
-import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -154,8 +153,8 @@ public class Compost {
     public static class ForgeEvents {
 
         @SubscribeEvent
-        private void onCommandsRegister(RegisterCommandsEvent event, CommandBuildContext buildContext) {
-            CompostCommand.register(event.getDispatcher(), buildContext);
+        public static void onCommandsRegister(RegisterCommandsEvent event) {
+            CompostCommand.register(event.getDispatcher(), event.getBuildContext());
         }
 
     }
