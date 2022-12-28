@@ -113,11 +113,6 @@ public class Compost {
         saveConfig();
     }
 
-    public static void insertGroup(int group, String item, double chance, int min, int max) {
-        config.items = ArrayUtils.insert(group, config.items, new Group(item, chance, min, max));
-        saveConfig();
-    }
-
     public static void removeGroup(int group) {
         config.items = ArrayUtils.remove(config.items, group);
         saveConfig();
@@ -125,11 +120,6 @@ public class Compost {
 
     public static void reverseGroups() {
         ArrayUtils.reverse(config.items);
-        saveConfig();
-    }
-
-    public static void shuffleGroups() {
-        ArrayUtils.shuffle(config.items);
         saveConfig();
     }
 
@@ -153,7 +143,7 @@ public class Compost {
     public static class ForgeEvents {
 
         @SubscribeEvent
-        private void onCommandsRegister(RegisterCommandsEvent event) {
+        public static void onCommandsRegister(RegisterCommandsEvent event) {
             CompostCommand.register(event.getDispatcher());
         }
 
