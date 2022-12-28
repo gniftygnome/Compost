@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static net.minecraft.tileentity.HopperTileEntity.addItem;
 
-
 @Mixin(HopperTileEntity.class)
 public abstract class HopperTileEntityMixin {
 
