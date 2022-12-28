@@ -16,15 +16,12 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.Objects;
 
 import static com.yurisuika.compost.Compost.*;
-import static com.yurisuika.compost.Compost.removeGroup;
 import static net.minecraft.server.command.CommandManager.*;
 
 public class CompostCommand {
