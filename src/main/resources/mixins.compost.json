@@ -4,7 +4,9 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "compost.refmap.json",
   "mixins": [
-    "world.block.ComposterBlockMixin"
+    "block.ComposterBlockInvoker",
+    "block.ComposterBlockMixin",
+    "tileentity.HopperTileEntityMixin"
   ],
   "client": [
     "mods.RoughlyEnoughItemsMixin$DefaultClientPluginMixin"
