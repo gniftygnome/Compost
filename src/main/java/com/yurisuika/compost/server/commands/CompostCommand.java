@@ -12,7 +12,6 @@ import net.minecraft.commands.arguments.item.ItemInput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +20,6 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.Objects;
 import java.util.Random;
 
 import static com.yurisuika.compost.Compost.*;
