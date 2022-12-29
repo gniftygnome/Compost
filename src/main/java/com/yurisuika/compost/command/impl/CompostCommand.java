@@ -23,7 +23,6 @@ import java.text.DecimalFormat;
 import java.util.Random;
 
 import static com.yurisuika.compost.Compost.*;
-import static com.yurisuika.compost.Compost.shuffleGroups;
 import static net.minecraft.command.Commands.*;
 
 public class CompostCommand {
