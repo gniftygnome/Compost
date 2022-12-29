@@ -16,9 +16,11 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.stream.Stream;
 
 public class Compost implements ModInitializer {
@@ -117,6 +119,19 @@ public class Compost implements ModInitializer {
         saveConfig();
     }
 
+    public static void insertGroup(int group, String item, double chance, int min, int max) {
+        Group[] array = (Group[]) Array.newInstance(config.items.getClass().getComponentType(), config.items.length + 1);
+        System.arraycopy(new Group[]{new Group(item, chance, min, max)}, 0, array, group, 1);
+        if (group > 0) {
+            System.arraycopy(config.items, 0, array, 0, group);
+        }
+        if (group < config.items.length) {
+            System.arraycopy(config.items, group, array, group + 1, config.items.length - group);
+        }
+        config.items = array;
+        saveConfig();
+    }
+
     public static void removeGroup(int group) {
         config.items = ArrayUtils.remove(config.items, group);
         saveConfig();
@@ -124,6 +139,13 @@ public class Compost implements ModInitializer {
 
     public static void reverseGroups() {
         ArrayUtils.reverse(config.items);
+        saveConfig();
+    }
+
+    public static void shuffleGroups(Random random) {
+        for (int i = config.items.length; i > 1; i--) {
+            ArrayUtils.swap(config.items, i - 1, random.nextInt(i), 1);
+        }
         saveConfig();
     }
 

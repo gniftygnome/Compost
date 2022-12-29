@@ -20,6 +20,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Random;
 
 import static com.yurisuika.compost.Compost.*;
 import static net.minecraft.server.command.CommandManager.*;
@@ -118,6 +119,14 @@ public class CompostCommand {
                                     reverseGroups();
 
                                     context.getSource().sendFeedback(new TranslatableText("commands.compost.groups.reverse"), true);
+                                    return 1;
+                                })
+                        )
+                        .then(literal("shuffle")
+                                .executes(context -> {
+                                    shuffleGroups(new Random());
+
+                                    context.getSource().sendFeedback(new TranslatableText("commands.compost.groups.shuffle"), true);
                                     return 1;
                                 })
                         )
@@ -226,6 +235,42 @@ public class CompostCommand {
                                                                     context.getSource().sendFeedback(new TranslatableText("commands.compost.group.add", itemStack.toHoverableText(), new DecimalFormat("0.###############").format(BigDecimal.valueOf(chance).multiply(BigDecimal.valueOf(100))), min, max), true);
                                                                     return 1;
                                                                 })
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                        .then(literal("insert")
+                                .then(argument("group", IntegerArgumentType.integer(1))
+                                        .then(argument("item", ItemStackArgumentType.itemStack())
+                                                .then(argument("chance", DoubleArgumentType.doubleArg(0.0D, 1.0D))
+                                                        .then(argument("min", IntegerArgumentType.integer(0, 64))
+                                                                .then(argument("max", IntegerArgumentType.integer(1, 64))
+                                                                        .executes(context -> {
+                                                                            int range = IntegerArgumentType.getInteger(context, "group");
+                                                                            if (range > config.items.length) {
+                                                                                context.getSource().sendError(new TranslatableText("commands.compost.group.failed", range, config.items.length));
+                                                                                return 0;
+                                                                            } else {
+                                                                                int number = IntegerArgumentType.getInteger(context, "group") - 1;
+                                                                                ItemStackArgument arg = ItemStackArgumentType.getItemStackArgument(context, "item");
+                                                                                ItemStack itemStack = arg.createStack(1, false);
+                                                                                StringBuilder stringBuilder = new StringBuilder(arg.getItem().getTranslationKey().replace("item.", "").replace(".", ":"));
+                                                                                if (((ItemStackArgumentAccessor) arg).getNbt() != null) {
+                                                                                    stringBuilder.append(((ItemStackArgumentAccessor) arg).getNbt());
+                                                                                }
+                                                                                String item = stringBuilder.toString();
+                                                                                double chance = Math.max(0.0D, Math.min(DoubleArgumentType.getDouble(context, "chance"), 1.0D));
+                                                                                int maxCount = itemStack.getMaxCount();
+                                                                                int max = Math.min(IntegerArgumentType.getInteger(context, "max"), maxCount);
+                                                                                int min = Math.min(Math.min(IntegerArgumentType.getInteger(context, "min"), maxCount), max);
+
+                                                                                insertGroup(number, item, chance, min, max);
+                                                                                context.getSource().sendFeedback(new TranslatableText("commands.compost.group.insert", itemStack.toHoverableText(), new DecimalFormat("0.###############").format(BigDecimal.valueOf(chance).multiply(BigDecimal.valueOf(100))), min, max), true);
+                                                                                return 1;
+                                                                            }
+                                                                        })
+                                                                )
                                                         )
                                                 )
                                         )
