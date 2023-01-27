@@ -1,24 +1,29 @@
-modLoader="javafml"
-loaderVersion="[40,)"
-license="GNU Lesser General Public License v3.0"
+modLoader = "javafml"
+loaderVersion = "[40,)"
+license = "GNU Lesser General Public License v3.0"
+
 [[mods]]
-modId="compost"
-version="${file.jarVersion}"
-displayName="Compost"
-logoFile="compost.png"
-authors="yurisuika"
-description='''
+modId = "compost"
+version= " ${file.jarVersion}"
+displayName = "Compost"
+displayURL = "https://github.com/yurisuika/Compost"
+issueTrackerURL = "https://github.com/yurisuika/Compost/issues"
+logoFile = "assets/compost/icon.png"
+authors = "yurisuika"
+description = '''
 Make composters turn your food waste into whatever you want!
 '''
+
 [[dependencies.compost]]
-    modId="forge"
-    mandatory=true
-    versionRange="[40,)"
-    ordering="AFTER"
-    side="CLIENT"
+modId = "forge"
+mandatory = true
+versionRange = "[40,)"
+ordering = "AFTER"
+side = "CLIENT"
+
 [[dependencies.compost]]
-    modId="roughlyenoughitems"
-    mandatory=false
-    versionRange="[8,)"
-    ordering="NONE"
-    side="CLIENT"
+modId = "roughlyenoughitems"
+mandatory = false
+versionRange = "[8,)"
+ordering = "NONE"
+side = "CLIENT"

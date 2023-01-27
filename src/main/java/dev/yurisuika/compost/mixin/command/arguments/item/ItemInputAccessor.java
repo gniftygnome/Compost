@@ -1,4 +1,4 @@
-package com.yurisuika.compost.mixin.command.arguments.item;
+package dev.yurisuika.compost.mixin.command.arguments.item;
 
 import net.minecraft.commands.arguments.item.ItemInput;
 import net.minecraft.nbt.CompoundTag;

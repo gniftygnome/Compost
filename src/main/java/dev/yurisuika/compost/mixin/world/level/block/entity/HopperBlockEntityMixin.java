@@ -1,6 +1,6 @@
-package com.yurisuika.compost.mixin.world.level.block.entity;
+package dev.yurisuika.compost.mixin.world.level.block.entity;
 
-import com.yurisuika.compost.world.level.block.ArrayOutputContainer;
+import dev.yurisuika.compost.world.level.block.ArrayOutputContainer;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
