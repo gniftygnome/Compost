@@ -1,4 +1,4 @@
-package com.yurisuika.compost.mixin.command.argument;
+package dev.yurisuika.compost.mixin.command.argument;
 
 import net.minecraft.command.argument.ItemStackArgument;
 import net.minecraft.nbt.NbtCompound;
