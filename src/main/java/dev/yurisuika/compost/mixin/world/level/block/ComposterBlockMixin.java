@@ -1,9 +1,9 @@
-package com.yurisuika.compost.mixin.world.level.block;
+package dev.yurisuika.compost.mixin.world.level.block;
 
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.yurisuika.compost.Compost;
-import com.yurisuika.compost.world.level.block.ArrayOutputContainer;
+import dev.yurisuika.compost.Compost;
+import dev.yurisuika.compost.world.level.block.ArrayOutputContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;

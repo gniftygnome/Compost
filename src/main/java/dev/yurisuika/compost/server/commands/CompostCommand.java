@@ -1,4 +1,4 @@
-package com.yurisuika.compost.server.commands;
+package dev.yurisuika.compost.server.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
@@ -21,7 +21,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
-import static com.yurisuika.compost.Compost.*;
+import static dev.yurisuika.compost.Compost.*;
 import static net.minecraft.commands.Commands.*;
 
 public class CompostCommand {
@@ -33,7 +33,6 @@ public class CompostCommand {
                         .then(literal("reload")
                                 .executes(context -> {
                                     loadConfig();
-
                                     context.getSource().sendSuccess(Component.translatable("commands.compost.config.reload"), true);
                                     return 1;
                                 })
@@ -44,7 +43,6 @@ public class CompostCommand {
                                     for (int i = 0; i < length; i++) {
                                         removeGroup(0);
                                     }
-
                                     addGroup("minecraft:dirt", 1.0D, 1,1);
                                     addGroup("minecraft:bone_meal", 1.0D, 1,1);
                                     setShuffle(true);
@@ -65,7 +63,6 @@ public class CompostCommand {
                                 .then(argument("value", BoolArgumentType.bool())
                                         .executes(context -> {
                                             boolean value = BoolArgumentType.getBool(context, "value");
-
                                             setShuffle(value);
                                             context.getSource().sendSuccess(Component.translatable("commands.compost.shuffle.set", value), true);
                                             return 1;
@@ -107,7 +104,6 @@ public class CompostCommand {
                                         int maxCount = itemStack.getMaxStackSize();
                                         int max = Math.min(group.max, maxCount);
                                         int min = Math.min(Math.min(group.min, maxCount), max);
-
                                         context.getSource().sendSuccess(Component.translatable("commands.compost.groups.get", ArrayUtils.indexOf(config.items, group) + 1, itemStack.getDisplayName(), new DecimalFormat("0.###############").format(BigDecimal.valueOf(chance).multiply(BigDecimal.valueOf(100))), min, max), false);
                                     }
                                     return 1;
@@ -116,7 +112,6 @@ public class CompostCommand {
                         .then(literal("reverse")
                                 .executes(context -> {
                                     reverseGroups();
-
                                     context.getSource().sendSuccess(Component.translatable("commands.compost.groups.reverse"), true);
                                     return 1;
                                 })
@@ -124,7 +119,6 @@ public class CompostCommand {
                         .then(literal("shuffle")
                                 .executes(context -> {
                                     shuffleGroups();
-
                                     context.getSource().sendSuccess(Component.translatable("commands.compost.groups.shuffle"), true);
                                     return 1;
                                 })
@@ -164,7 +158,6 @@ public class CompostCommand {
                                                 int maxCount = itemStack.getMaxStackSize();
                                                 int max = Math.min(group.max, maxCount);
                                                 int min = Math.min(Math.min(group.min, maxCount), max);
-
                                                 context.getSource().sendSuccess(Component.translatable("commands.compost.groups.get", ArrayUtils.indexOf(config.items, group) + 1, itemStack.getDisplayName(), new DecimalFormat("0.###############").format(BigDecimal.valueOf(chance).multiply(BigDecimal.valueOf(100))), min, max), false);
                                                 return 1;
                                             }
@@ -204,7 +197,6 @@ public class CompostCommand {
                                                 int maxCount = itemStack.getMaxStackSize();
                                                 int max = Math.min(group.max, maxCount);
                                                 int min = Math.min(Math.min(group.min, maxCount), max);
-
                                                 removeGroup(number);
                                                 context.getSource().sendSuccess(Component.translatable("commands.compost.group.remove", itemStack.getDisplayName(), new DecimalFormat("0.###############").format(BigDecimal.valueOf(chance).multiply(BigDecimal.valueOf(100))), min, max), true);
                                                 return 1;
@@ -225,7 +217,6 @@ public class CompostCommand {
                                                                     int maxCount = itemStack.getMaxStackSize();
                                                                     int max = Math.min(IntegerArgumentType.getInteger(context, "max"), maxCount);
                                                                     int min = Math.min(Math.min(IntegerArgumentType.getInteger(context, "min"), maxCount), max);
-
                                                                     addGroup(item, chance, min, max);
                                                                     context.getSource().sendSuccess(Component.translatable("commands.compost.group.add", itemStack.getDisplayName(), new DecimalFormat("0.###############").format(BigDecimal.valueOf(chance).multiply(BigDecimal.valueOf(100))), min, max), true);
                                                                     return 1;
@@ -255,7 +246,6 @@ public class CompostCommand {
                                                                                 int maxCount = itemStack.getMaxStackSize();
                                                                                 int max = Math.min(IntegerArgumentType.getInteger(context, "max"), maxCount);
                                                                                 int min = Math.min(Math.min(IntegerArgumentType.getInteger(context, "min"), maxCount), max);
-
                                                                                 insertGroup(number, item, chance, min, max);
                                                                                 context.getSource().sendSuccess(Component.translatable("commands.compost.group.insert", itemStack.getDisplayName(), new DecimalFormat("0.###############").format(BigDecimal.valueOf(chance).multiply(BigDecimal.valueOf(100))), min, max), true);
                                                                                 return 1;
@@ -287,7 +277,6 @@ public class CompostCommand {
                                                                                 int maxCount = itemStack.getMaxStackSize();
                                                                                 int max = Math.min(IntegerArgumentType.getInteger(context, "max"), maxCount);
                                                                                 int min = Math.min(Math.min(IntegerArgumentType.getInteger(context, "min"), maxCount), max);
-
                                                                                 setGroup(number, item, chance, min, max);
                                                                                 context.getSource().sendSuccess(Component.translatable("commands.compost.group.set", itemStack.getDisplayName(), new DecimalFormat("0.###############").format(BigDecimal.valueOf(chance).multiply(BigDecimal.valueOf(100))), min, max), true);
                                                                                 return 1;

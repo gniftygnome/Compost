@@ -1,8 +1,9 @@
 {
   "required": true,
-  "package": "com.yurisuika.compost.mixin",
-  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "package": "dev.yurisuika.compost.mixin",
   "refmap": "compost.refmap.json",
+  "compatibilityLevel": "JAVA_17",
   "mixins": [
     "world.level.block.ComposterBlockInvoker",
     "world.level.block.ComposterBlockMixin",
@@ -14,6 +15,5 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "plugin": "com.yurisuika.compost.CompostMixinPlugin",
-  "minVersion": "0.8"
+  "plugin": "dev.yurisuika.compost.CompostMixinPlugin"
 }

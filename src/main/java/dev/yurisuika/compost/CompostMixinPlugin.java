@@ -1,4 +1,4 @@
-package com.yurisuika.compost;
+package dev.yurisuika.compost;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraftforge.fml.loading.FMLLoader;
@@ -16,7 +16,7 @@ public final class CompostMixinPlugin implements IMixinConfigPlugin {
     private static final Supplier<Boolean> TRUE = () -> true;
 
     private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
-            "com.yurisuika.compost.mixin.mods.RoughlyEnoughItemsMixin$DefaultClientPluginMixin", () -> FMLLoader.getLoadingModList().getModFileById("roughlyenoughitems") != null
+            "dev.yurisuika.compost.mixin.mods.RoughlyEnoughItemsMixin$DefaultClientPluginMixin", () -> FMLLoader.getLoadingModList().getModFileById("roughlyenoughitems") != null
     );
 
     @Override
