@@ -1,6 +1,6 @@
-package com.yurisuika.compost.mixin.tileentity;
+package dev.yurisuika.compost.mixin.tileentity;
 
-import com.yurisuika.compost.block.ArrayFullInventory;
+import dev.yurisuika.compost.block.ArrayFullInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.HopperTileEntity;

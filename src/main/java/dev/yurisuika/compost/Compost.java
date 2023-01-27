@@ -1,8 +1,8 @@
-package com.yurisuika.compost;
+package dev.yurisuika.compost;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.yurisuika.compost.command.impl.CompostCommand;
+import dev.yurisuika.compost.command.impl.CompostCommand;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
