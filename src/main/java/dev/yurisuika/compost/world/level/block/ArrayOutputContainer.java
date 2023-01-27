@@ -1,6 +1,6 @@
-package com.yurisuika.compost.world.level.block;
+package dev.yurisuika.compost.world.level.block;
 
-import com.yurisuika.compost.mixin.world.level.block.ComposterBlockInvoker;
+import dev.yurisuika.compost.mixin.world.level.block.ComposterBlockInvoker;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.SimpleContainer;

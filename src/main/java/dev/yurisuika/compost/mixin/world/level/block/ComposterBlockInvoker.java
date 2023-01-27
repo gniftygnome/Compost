@@ -1,4 +1,4 @@
-package com.yurisuika.compost.mixin.world.level.block;
+package dev.yurisuika.compost.mixin.world.level.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelAccessor;
