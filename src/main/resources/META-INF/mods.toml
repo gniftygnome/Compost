@@ -4,7 +4,7 @@ license = "GNU Lesser General Public License v3.0"
 
 [[mods]]
 modId = "compost"
-version= " ${version}"
+version = "${version}"
 displayName = "Compost"
 displayURL = "https://github.com/yurisuika/Compost"
 issueTrackerURL = "https://github.com/yurisuika/Compost/issues"
