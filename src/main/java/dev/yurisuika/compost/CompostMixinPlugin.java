@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public final class CompostMixinPlugin implements IMixinConfigPlugin {
+public class CompostMixinPlugin implements IMixinConfigPlugin {
 
     private static final Supplier<Boolean> TRUE = () -> true;
 

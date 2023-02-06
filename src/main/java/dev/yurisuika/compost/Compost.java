@@ -2,9 +2,9 @@ package dev.yurisuika.compost;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dev.yurisuika.compost.command.impl.CompostCommand;
+import dev.yurisuika.compost.server.command.CompostCommand;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -97,12 +97,12 @@ public class Compost {
             if (group.item.contains("{")) {
                 index = group.item.indexOf("{");
                 String id = group.item.substring(0, index);
-                item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(id));
+                item = ForgeRegistries.ITEMS.getValue(new Identifier(id));
             } else {
-                item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(group.item));
+                item = ForgeRegistries.ITEMS.getValue(new Identifier(group.item));
             }
             group.chance = Math.max(0.0D, Math.min(group.chance, 1.0D));
-            int maxCount = item.getMaxStackSize();
+            int maxCount = item.getMaxCount();
             group.max = Math.min(group.max, maxCount);
             group.min = Math.min(Math.min(group.min, maxCount), group.max);
         });
