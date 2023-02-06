@@ -13,11 +13,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.math.BigDecimal;
@@ -87,10 +87,10 @@ public class CompostCommand {
                                         Item item;
                                         if (group.item.contains("{")) {
                                             index = group.item.indexOf("{");
-                                            item = ForgeRegistries.ITEMS.getValue(new Identifier(group.item.substring(0, index)));
+                                            item = Registries.ITEM.get(new Identifier(group.item.substring(0, index)));
                                         } else {
                                             index = 0;
-                                            item = ForgeRegistries.ITEMS.getValue(new Identifier(group.item));
+                                            item = Registries.ITEM.get(new Identifier(group.item));
                                         }
                                         ItemStack itemStack = new ItemStack(item);
                                         if (group.item.contains("{")) {
