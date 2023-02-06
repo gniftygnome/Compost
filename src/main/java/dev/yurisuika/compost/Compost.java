@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
 import dev.yurisuika.compost.server.command.CompostCommand;
 import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -82,9 +83,9 @@ public class Compost {
             if (group.item.contains("{")) {
                 index = group.item.indexOf("{");
                 String id = group.item.substring(0, index);
-                item = ForgeRegistries.ITEMS.getValue(new Identifier(id));
+                item = Registries.ITEM.get(new Identifier(id));
             } else {
-                item = ForgeRegistries.ITEMS.getValue(new Identifier(group.item));
+                item = Registries.ITEM.get(new Identifier(group.item));
             }
             group.chance = Math.max(0.0D, Math.min(group.chance, 1.0D));
             int maxCount = item.getMaxCount();

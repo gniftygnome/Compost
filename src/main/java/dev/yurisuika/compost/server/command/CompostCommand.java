@@ -17,6 +17,7 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.math.BigDecimal;
@@ -86,10 +87,10 @@ public class CompostCommand {
                                         Item item;
                                         if (group.item.contains("{")) {
                                             index = group.item.indexOf("{");
-                                            item = Registries.ITEM.get(new Identifier(group.item.substring(0, index)));
+                                            item = ForgeRegistries.ITEMS.getValue(new Identifier(group.item.substring(0, index)));
                                         } else {
                                             index = 0;
-                                            item = Registries.ITEM.get(new Identifier(group.item));
+                                            item = ForgeRegistries.ITEMS.getValue(new Identifier(group.item));
                                         }
                                         ItemStack itemStack = new ItemStack(item);
                                         if (group.item.contains("{")) {
