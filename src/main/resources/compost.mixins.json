@@ -5,10 +5,10 @@
   "refmap": "compost.refmap.json",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "command.arguments.item.ItemInputAccessor",
-    "world.level.block.ComposterBlockInvoker",
-    "world.level.block.ComposterBlockMixin",
-    "world.level.block.entity.HopperBlockEntityMixin"
+    "block.ComposterBlockInvoker",
+    "block.ComposterBlockMixin",
+    "block.entity.HopperBlockEntityMixin",
+    "command.argument.ItemStackArgumentAccessor"
   ],
   "client": [
     "mods.RoughlyEnoughItemsMixin$DefaultClientPluginMixin"

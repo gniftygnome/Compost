@@ -10,10 +10,10 @@ import java.util.Iterator;
 
 public class RoughlyEnoughItemsMixin {
 
-    @Mixin(DefaultClientPlugin.class)
+    @Mixin(value = DefaultClientPlugin.class, remap = false)
     public static class DefaultClientPluginMixin {
 
-        @Redirect(method = "registerDisplays", at = @At(value = "INVOKE", target = "Ljava/util/Iterator;hasNext()Z"), slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/ComposterBlock;bootStrap()V"), to = @At(value = "INVOKE", target = "Lme/shedaniel/rei/plugin/client/DefaultClientPlugin$DummyAxeItem;getStrippedBlocksMap()Ljava/util/Map;")))
+        @Redirect(method = "registerDisplays", at = @At(value = "INVOKE", target = "Ljava/util/Iterator;hasNext()Z"), slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/block/ComposterBlock;registerDefaultCompostableItems()V"), to = @At(value = "INVOKE", target = "Lme/shedaniel/rei/plugin/client/DefaultClientPlugin$DummyAxeItem;getStrippedBlocksMap()Ljava/util/Map;")))
         private boolean redirectRegisterDisplays(Iterator instance) {
             return false;
         }
