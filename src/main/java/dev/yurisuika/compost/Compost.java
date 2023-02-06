@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import dev.yurisuika.compost.server.command.CompostCommand;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -12,7 +13,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -97,9 +97,9 @@ public class Compost {
             if (group.item.contains("{")) {
                 index = group.item.indexOf("{");
                 String id = group.item.substring(0, index);
-                item = ForgeRegistries.ITEMS.getValue(new Identifier(id));
+                item = Registry.ITEM.get(new Identifier(id));
             } else {
-                item = ForgeRegistries.ITEMS.getValue(new Identifier(group.item));
+                item = Registry.ITEM.get(new Identifier(group.item));
             }
             group.chance = Math.max(0.0D, Math.min(group.chance, 1.0D));
             int maxCount = item.getMaxCount();
