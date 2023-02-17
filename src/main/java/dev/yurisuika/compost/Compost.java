@@ -14,8 +14,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -30,11 +28,8 @@ import java.util.stream.Stream;
 @Mod("compost")
 public class Compost {
 
-    private static final Logger LOGGER = LogManager.getLogger();
-
     public static File file = new File(FMLPaths.CONFIGDIR.get().toFile(), "compost.json");
     public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
     public static Config config = new Config();
 
     public static class Config {
@@ -45,6 +40,22 @@ public class Compost {
                 new Group("minecraft:dirt", 1.0D, 1,1),
                 new Group("minecraft:bone_meal", 1.0D, 1, 1)
         };
+
+    }
+
+    public static class Group {
+
+        public String item;
+        public double chance;
+        public int min;
+        public int max;
+
+        public Group(String item, double chance, int min, int max) {
+            this.item = item;
+            this.chance = chance;
+            this.min = min;
+            this.max = max;
+        }
 
     }
 
@@ -63,14 +74,12 @@ public class Compost {
         try {
             if (file.exists()) {
                 StringBuilder contentBuilder = new StringBuilder();
-
                 try (Stream<String> stream = Files.lines(file.toPath(), StandardCharsets.UTF_8)) {
                     stream.forEach(s -> contentBuilder.append(s).append("\n"));
                 }
                 catch (IOException e) {
                     e.printStackTrace();
                 }
-
                 config = gson.fromJson(contentBuilder.toString(), Config.class);
             } else {
                 config = new Config();
@@ -102,9 +111,10 @@ public class Compost {
                 item = Registry.ITEM.get(new Identifier(group.item));
             }
             group.chance = Math.max(0.0D, Math.min(group.chance, 1.0D));
-            int maxCount = item.getMaxCount();
-            group.max = Math.min(group.max, maxCount);
-            group.min = Math.min(Math.min(group.min, maxCount), group.max);
+            int min = Math.max(Math.min(Math.min(group.min, item.getMaxCount()), group.max), 0);
+            int max = Math.max(Math.max(Math.min(group.max, item.getMaxCount()), group.min), 1);
+            group.min = min;
+            group.max = max;
         });
         saveConfig();
     }
@@ -158,27 +168,11 @@ public class Compost {
         saveConfig();
     }
 
-    public static class Group {
-
-        public String item;
-        public double chance;
-        public int min;
-        public int max;
-
-        Group(String item, double chance, int min, int max) {
-            this.item = item;
-            this.chance = chance;
-            this.min = min;
-            this.max = max;
-        }
-
-    }
-
     @Mod.EventBusSubscriber(modid = "compost")
-    public static class ForgeEvents {
+    public static class CommonForgeEvents {
 
         @SubscribeEvent
-        public static void onCommandsRegister(RegisterCommandsEvent event) {
+        public static void registerCommands(RegisterCommandsEvent event) {
             CompostCommand.register(event.getDispatcher());
         }
 
@@ -190,8 +184,6 @@ public class Compost {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        LOGGER.info("Loading Compost!");
-
         if (!file.exists()) {
             saveConfig();
         }

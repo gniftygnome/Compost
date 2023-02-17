@@ -2,6 +2,7 @@ package dev.yurisuika.compost.mixin.mods;
 
 import me.shedaniel.rei.plugin.common.DefaultPlugin;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
@@ -10,6 +11,7 @@ import java.util.Iterator;
 
 public class RoughlyEnoughItemsMixin {
 
+    @Pseudo
     @Mixin(DefaultPlugin.class)
     public static class DefaultPluginMixin {
 
