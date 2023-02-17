@@ -10,8 +10,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -32,8 +30,8 @@ public class Compost {
         public boolean shuffle = true;
 
         public Group[] items = {
-                new Group("minecraft:dirt", 1.0D, 1, 1),
-                new Group("minecraft:bone_meal", 1.0D, 1, 1)
+            new Group("minecraft:dirt", 1.0D, 1, 1),
+            new Group("minecraft:bone_meal", 1.0D, 1, 1)
         };
 
     }
@@ -156,15 +154,12 @@ public class Compost {
     }
 
     public Compost() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    private void setup(final FMLCommonSetupEvent event) {
         if (!file.exists()) {
             saveConfig();
         }
         loadConfig();
+
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
 }
