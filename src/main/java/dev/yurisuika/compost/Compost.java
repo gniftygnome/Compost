@@ -34,7 +34,7 @@ public class Compost {
         public boolean shuffle = true;
 
         public Group[] items = {
-                new Group("minecraft:dirt", 1.0D, 1,1),
+                new Group("minecraft:dirt", 1.0D, 1, 1),
                 new Group("minecraft:bone_meal", 1.0D, 1, 1)
         };
 
