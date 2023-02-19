@@ -23,7 +23,7 @@ import static net.minecraft.server.command.CommandManager.*;
 
 public class CompostCommand {
 
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher, RegistrationEnvironment environment) {
         dispatcher.register(literal("compost")
                 .then(literal("config")
                         .requires(source -> source.hasPermissionLevel(4))
