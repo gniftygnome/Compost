@@ -11,7 +11,7 @@
     "command.argument.ItemStackArgumentAccessor"
   ],
   "client": [
-    "mods.RoughlyEnoughItemsMixin$DefaultClientPluginMixin"
+    "mods.RoughlyEnoughItemsMixin$DefaultPluginMixin"
   ],
   "injectors": {
     "defaultRequire": 1
