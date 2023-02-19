@@ -13,9 +13,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
-import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.spongepowered.asm.mixin.Mixin;
@@ -49,10 +49,10 @@ public abstract class ComposterBlockMixin {
                 if (group.item.contains("{")) {
                     index = group.item.indexOf("{");
                     String id = group.item.substring(0, index);
-                    item = Registries.ITEM.get(new Identifier(id));
+                    item = Registry.ITEM.get(new Identifier(id));
                 } else {
                     index = 0;
-                    item = Registries.ITEM.get(new Identifier(group.item));
+                    item = Registry.ITEM.get(new Identifier(group.item));
                 }
                 ItemStack itemStack = new ItemStack(item, ThreadLocalRandom.current().nextInt(group.min, group.max + 1));
                 if (group.item.contains("{")) {
@@ -81,10 +81,10 @@ public abstract class ComposterBlockMixin {
                 if (group.item.contains("{")) {
                     index = group.item.indexOf("{");
                     String id = group.item.substring(0, index);
-                    item = Registries.ITEM.get(new Identifier(id));
+                    item = Registry.ITEM.get(new Identifier(id));
                 } else {
                     index = 0;
-                    item = Registries.ITEM.get(new Identifier(group.item));
+                    item = Registry.ITEM.get(new Identifier(group.item));
                 }
                 ItemStack itemStack = new ItemStack(item, ThreadLocalRandom.current().nextInt(group.min, group.max + 1));
                 if (group.item.contains("{")) {
