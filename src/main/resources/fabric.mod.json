@@ -38,8 +38,5 @@
     "fabricloader": ">=0.12.0",
     "minecraft": "1.16.x",
     "java": ">=8"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }
