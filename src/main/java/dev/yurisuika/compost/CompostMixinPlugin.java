@@ -16,7 +16,7 @@ public class CompostMixinPlugin implements IMixinConfigPlugin {
     private static final Supplier<Boolean> TRUE = () -> true;
 
     private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
-            "dev.yurisuika.compost.mixin.mods.RoughlyEnoughItemsMixin$DefaultClientPluginMixin", () -> FMLLoader.getLoadingModList().getModFileById("roughlyenoughitems") != null
+            "dev.yurisuika.compost.mixin.mods.RoughlyEnoughItemsMixin$DefaultPluginMixin", () -> FMLLoader.getLoadingModList().getModFileById("roughlyenoughitems") != null
     );
 
     @Override
