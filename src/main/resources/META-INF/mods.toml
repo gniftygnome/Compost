@@ -19,7 +19,7 @@ modId = "forge"
 mandatory = true
 versionRange = "[36,)"
 ordering = "AFTER"
-side = "CLIENT"
+side = "SERVER"
 
 [[dependencies.compost]]
 modId = "roughlyenoughitems"
