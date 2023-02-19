@@ -190,7 +190,7 @@ public class Compost {
 
         @SubscribeEvent
         public static void registerCommands(RegisterCommandsEvent event) {
-            CompostCommand.register(event.getDispatcher());
+            CompostCommand.register(event.getDispatcher(), event.getEnvironment());
         }
 
     }
