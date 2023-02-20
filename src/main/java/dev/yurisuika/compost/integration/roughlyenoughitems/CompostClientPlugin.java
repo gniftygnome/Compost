@@ -17,7 +17,7 @@ import java.util.*;
 import static dev.yurisuika.compost.Compost.*;
 
 @Environment(EnvType.CLIENT)
-public class CompostPlugin implements REIPluginV0 {
+public class CompostClientPlugin implements REIPluginV0 {
 
     @Override
     public void registerRecipeDisplays(RecipeHelper recipeHelper) {
