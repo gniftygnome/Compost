@@ -15,11 +15,11 @@ Make composters turn your food waste into whatever you want!
 '''
 
 [[dependencies.compost]]
-modId="minecraft"
-mandatory=true
-versionRange="[1.17,1.18)"
-ordering="NONE"
-side="SERVER"
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.17,1.18)"
+ordering = "NONE"
+side = "SERVER"
 
 [[dependencies.compost]]
 modId = "forge"
