@@ -6,6 +6,7 @@ license = "GNU Lesser General Public License v3.0"
 modId = "compost"
 version = "${version}"
 displayName = "Compost"
+displayTest = "IGNORE_SERVER_VERSION"
 displayURL = "https://github.com/yurisuika/Compost"
 issueTrackerURL = "https://github.com/yurisuika/Compost/issues"
 logoFile = "icon.png"
@@ -25,7 +26,7 @@ side = "SERVER"
 modId = "forge"
 mandatory = true
 versionRange = "[38,)"
-ordering = "AFTER"
+ordering = "NONE"
 side = "SERVER"
 
 [[dependencies.compost]]
