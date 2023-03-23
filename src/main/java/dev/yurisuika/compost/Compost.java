@@ -3,15 +3,20 @@ package dev.yurisuika.compost;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import dev.yurisuika.compost.block.entity.ArrayComposterBlockEntity;
 import dev.yurisuika.compost.server.command.CompostCommand;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -159,6 +164,8 @@ public class Compost implements ModInitializer {
         saveConfig();
     }
 
+    public static BlockEntityType<ArrayComposterBlockEntity> COMPOSTER;
+
     @Override
     public void onInitialize() {
         if (!file.exists()) {
@@ -167,6 +174,12 @@ public class Compost implements ModInitializer {
         loadConfig();
 
         CommandRegistrationCallback.EVENT.register(CompostCommand::register);
+
+        COMPOSTER = Registry.register(
+                Registries.BLOCK_ENTITY_TYPE,
+                new Identifier("compost", "composter"),
+                FabricBlockEntityTypeBuilder.create(ArrayComposterBlockEntity::new, Blocks.COMPOSTER).build()
+        );
     }
 
 }
