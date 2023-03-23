@@ -2,17 +2,15 @@ package dev.yurisuika.compost.block;
 
 import com.google.common.collect.Lists;
 import dev.yurisuika.compost.Compost;
-import dev.yurisuika.compost.block.entity.ArrayComposterBlockEntity;
+import dev.yurisuika.compost.block.entity.ComposterBlockEntity;
 import dev.yurisuika.compost.mixin.block.ComposterBlockInvoker;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ComposterBlock;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -33,15 +31,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ArrayComposterBlock extends ComposterBlock implements BlockEntityProvider {
+public class ComposterBlock extends net.minecraft.block.ComposterBlock implements BlockEntityProvider {
 
-    public ArrayComposterBlock(Settings settings) {
+    public ComposterBlock(Settings settings) {
         super(settings);
     }
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new ArrayComposterBlockEntity(pos, state);
+        return new ComposterBlockEntity(pos, state);
     }
 
     @Override
@@ -68,7 +66,7 @@ public class ArrayComposterBlock extends ComposterBlock implements BlockEntityPr
             return ActionResult.success(world.isClient);
         }
         if (i == 8) {
-            ArrayComposterBlock.emptyFullComposter(state, world, pos);
+            ComposterBlock.emptyFullComposter(state, world, pos);
             return ActionResult.success(world.isClient);
         }
         return ActionResult.PASS;
@@ -77,7 +75,7 @@ public class ArrayComposterBlock extends ComposterBlock implements BlockEntityPr
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (state.get(LEVEL) == 7) {
-            createInventory(((ArrayComposterBlockEntity)Objects.requireNonNull(world.getBlockEntity(pos))).inventory);
+            createInventory(((ComposterBlockEntity)Objects.requireNonNull(world.getBlockEntity(pos))).inventory);
             world.setBlockState(pos, state.cycle(LEVEL), Block.NOTIFY_ALL);
             world.playSound(null, pos, SoundEvents.BLOCK_COMPOSTER_READY, SoundCategory.BLOCKS, 1.0f, 1.0f);
         }
@@ -89,12 +87,12 @@ public class ArrayComposterBlock extends ComposterBlock implements BlockEntityPr
                 double x = (double)(world.random.nextFloat() * 0.7F) + 0.15000000596046448D;
                 double y = (double)(world.random.nextFloat() * 0.7F) + 0.06000000238418579D + 0.6D;
                 double z = (double)(world.random.nextFloat() * 0.7F) + 0.15000000596046448D;
-                ItemEntity itemEntity = new ItemEntity(world, (double)pos.getX() + x, (double)pos.getY() + y, (double)pos.getZ() + z, ((ArrayComposterBlockEntity)Objects.requireNonNull(world.getBlockEntity(pos))).inventory.get(i));
+                ItemEntity itemEntity = new ItemEntity(world, (double)pos.getX() + x, (double)pos.getY() + y, (double)pos.getZ() + z, ((ComposterBlockEntity)Objects.requireNonNull(world.getBlockEntity(pos))).inventory.get(i));
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);
             }
         }
-        BlockState blockState = ArrayComposterBlock.emptyComposter(state, world, pos);
+        BlockState blockState = ComposterBlock.emptyComposter(state, world, pos);
         world.playSound(null, pos, SoundEvents.BLOCK_COMPOSTER_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f);
         return blockState;
     }
@@ -112,9 +110,7 @@ public class ArrayComposterBlock extends ComposterBlock implements BlockEntityPr
                 list.add(Compost.createItemStack(group));
             }
         });
-        if (Compost.config.shuffle) {
-            Collections.shuffle(list);
-        }
+        Collections.shuffle(list);
         for (ItemStack itemStack : list) {
             itemStacks.set(list.indexOf(itemStack), itemStack);
         }

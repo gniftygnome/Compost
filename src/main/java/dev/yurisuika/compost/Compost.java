@@ -3,7 +3,7 @@ package dev.yurisuika.compost;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import dev.yurisuika.compost.block.entity.ArrayComposterBlockEntity;
+import dev.yurisuika.compost.block.entity.ComposterBlockEntity;
 import dev.yurisuika.compost.server.command.CompostCommand;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -32,8 +32,6 @@ public class Compost implements ModInitializer {
     public static Config config = new Config();
 
     public static class Config {
-
-        public boolean shuffle = true;
 
         public Group[] items = {
             new Group("minecraft:dirt", 1.0D, 1, 1),
@@ -125,11 +123,6 @@ public class Compost implements ModInitializer {
         return itemStack;
     }
 
-    public static void setShuffle(boolean bool) {
-        config.shuffle = bool;
-        saveConfig();
-    }
-
     public static void setGroup(int group, String item, double chance, int min, int max) {
         config.items[group] = new Group(item, chance, min, max);
         saveConfig();
@@ -144,27 +137,12 @@ public class Compost implements ModInitializer {
         saveConfig();
     }
 
-    public static void insertGroup(int group, String item, double chance, int min, int max) {
-        config.items = ArrayUtils.insert(group, config.items, new Group(item, chance, min, max));
-        saveConfig();
-    }
-
     public static void removeGroup(int group) {
         config.items = ArrayUtils.remove(config.items, group);
         saveConfig();
     }
 
-    public static void reverseGroups() {
-        ArrayUtils.reverse(config.items);
-        saveConfig();
-    }
-
-    public static void shuffleGroups() {
-        ArrayUtils.shuffle(config.items);
-        saveConfig();
-    }
-
-    public static BlockEntityType<ArrayComposterBlockEntity> COMPOSTER;
+    public static BlockEntityType<ComposterBlockEntity> COMPOSTER;
 
     @Override
     public void onInitialize() {
@@ -178,7 +156,7 @@ public class Compost implements ModInitializer {
         COMPOSTER = Registry.register(
                 Registries.BLOCK_ENTITY_TYPE,
                 new Identifier("compost", "composter"),
-                FabricBlockEntityTypeBuilder.create(ArrayComposterBlockEntity::new, Blocks.COMPOSTER).build()
+                FabricBlockEntityTypeBuilder.create(ComposterBlockEntity::new, Blocks.COMPOSTER).build()
         );
     }
 
