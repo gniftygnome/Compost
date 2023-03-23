@@ -21,6 +21,7 @@ import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Compost implements ModInitializer {
 
@@ -109,7 +110,7 @@ public class Compost implements ModInitializer {
             index = 0;
             item = Registry.ITEM.get(new Identifier(group.item));
         }
-        ItemStack itemStack = new ItemStack(item);
+        ItemStack itemStack = new ItemStack(item, ThreadLocalRandom.current().nextInt(group.min, group.max + 1));
         if (group.item.contains("{")) {
             NbtCompound nbt;
             try {
