@@ -112,7 +112,7 @@ public class ComposterBlock extends net.minecraft.block.ComposterBlock implement
         });
         Collections.shuffle(list);
         for (ItemStack itemStack : list) {
-            itemStacks.set(list.indexOf(itemStack), itemStack);
+            itemStacks.set(list.indexOf(itemStack), itemStack).copyWithCount(itemStack.getCount());
         }
     }
 

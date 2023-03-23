@@ -1,7 +1,6 @@
 package dev.yurisuika.compost.server.command;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.minecraft.command.CommandRegistryAccess;
