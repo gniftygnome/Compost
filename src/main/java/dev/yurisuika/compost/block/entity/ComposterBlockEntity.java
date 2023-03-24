@@ -22,11 +22,9 @@ import java.util.stream.IntStream;
 public class ComposterBlockEntity extends LootableContainerBlockEntity implements SidedInventory {
 
     public DefaultedList<ItemStack> inventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
-    private final BlockState state;
 
     public ComposterBlockEntity(BlockPos pos, BlockState state) {
         super(Compost.COMPOSTER, pos, state);
-        this.state = state;
     }
 
     @Override
@@ -103,7 +101,7 @@ public class ComposterBlockEntity extends LootableContainerBlockEntity implement
     @Override
     public void markDirty() {
         if (this.isEmpty()) {
-            ComposterBlock.emptyComposter(this.state, this.world, this.pos);
+            ComposterBlock.emptyComposter(this.getCachedState(), this.world, this.pos);
         }
     }
 
