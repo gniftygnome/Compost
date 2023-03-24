@@ -11,6 +11,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.RegistryKey;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -49,7 +50,9 @@ public class CompostCommand {
                         .requires(source -> source.hasPermissionLevel(4))
                         .then(literal("query")
                                 .executes(context -> {
-                                    context.getSource().sendFeedback(new TranslatableText("commands.compost.groups.query", config.items.length), false);
+                                    for (Group group : config.items) {
+                                        context.getSource().sendFeedback(new TranslatableText("commands.compost.groups.query", ArrayUtils.indexOf(config.items, group) + 1, createItemStack(group).toHoverableText(), new DecimalFormat("0.###############").format(BigDecimal.valueOf(group.chance).multiply(BigDecimal.valueOf(100))), group.min, group.max), false);
+                                    }
                                     return 1;
                                 })
                         )
