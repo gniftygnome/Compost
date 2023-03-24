@@ -21,22 +21,11 @@ import java.util.stream.IntStream;
 public class ComposterBlockEntity extends LootableContainerBlockEntity implements SidedInventory {
 
     public DefaultedList<ItemStack> inventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
-    private BlockState state;
-    private boolean dirty;
+    private final BlockState state;
 
     public ComposterBlockEntity(BlockPos pos, BlockState state) {
         super(Compost.COMPOSTER, pos, state);
         this.state = state;
-    }
-
-    @Override
-    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return GenericContainerScreenHandler.createGeneric9x3(syncId, playerInventory, this);
-    }
-
-    @Override
-    protected Text getContainerName() {
-        return Text.translatable("container.compost.composter");
     }
 
     @Override
@@ -57,11 +46,6 @@ public class ComposterBlockEntity extends LootableContainerBlockEntity implement
     }
 
     @Override
-    public int size() {
-        return 27;
-    }
-
-    @Override
     public void setStack(int slot, ItemStack stack) {
         this.inventory.set(slot, stack);
         if (stack.getCount() > this.getMaxCountPerStack()) {
@@ -70,8 +54,8 @@ public class ComposterBlockEntity extends LootableContainerBlockEntity implement
     }
 
     @Override
-    public int getMaxCountPerStack() {
-        return 64;
+    public int size() {
+        return 27;
     }
 
     @Override
@@ -82,6 +66,21 @@ public class ComposterBlockEntity extends LootableContainerBlockEntity implement
     @Override
     protected void setInvStackList(DefaultedList<ItemStack> list) {
         this.inventory = list;
+    }
+
+    @Override
+    protected Text getContainerName() {
+        return Text.translatable("container.compost.composter");
+    }
+
+    @Override
+    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
+        return GenericContainerScreenHandler.createGeneric9x3(syncId, playerInventory, this);
+    }
+
+    @Override
+    public int getMaxCountPerStack() {
+        return 64;
     }
 
     @Override
@@ -101,7 +100,6 @@ public class ComposterBlockEntity extends LootableContainerBlockEntity implement
 
     @Override
     public void markDirty() {
-        this.dirty = true;
         if (this.isEmpty()) {
             ComposterBlock.emptyComposter(this.state, this.world, this.pos);
         }

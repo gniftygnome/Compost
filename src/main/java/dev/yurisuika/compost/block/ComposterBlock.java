@@ -17,7 +17,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -72,15 +71,6 @@ public class ComposterBlock extends net.minecraft.block.ComposterBlock implement
         return ActionResult.PASS;
     }
 
-    @Override
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (state.get(LEVEL) == 7) {
-            createInventory(((ComposterBlockEntity)Objects.requireNonNull(world.getBlockEntity(pos))).inventory);
-            world.setBlockState(pos, state.cycle(LEVEL), Block.NOTIFY_ALL);
-            world.playSound(null, pos, SoundEvents.BLOCK_COMPOSTER_READY, SoundCategory.BLOCKS, 1.0f, 1.0f);
-        }
-    }
-
     public static BlockState emptyFullComposter(BlockState state, World world, BlockPos pos) {
         if (!world.isClient) {
             for (int i = 0; i < 27; i++) {
@@ -103,16 +93,21 @@ public class ComposterBlock extends net.minecraft.block.ComposterBlock implement
         return blockState;
     }
 
-    public void createInventory(DefaultedList<ItemStack> itemStacks) {
-        List<ItemStack> list = Lists.newArrayList();
-        Arrays.stream(Compost.config.items).forEach(group -> {
-            if(ThreadLocalRandom.current().nextDouble() < group.chance) {
-                list.add(Compost.createItemStack(group));
+    @Override
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        if (state.get(LEVEL) == 7) {
+            List<ItemStack> list = Lists.newArrayList();
+            Arrays.stream(Compost.config.items).forEach(group -> {
+                if(ThreadLocalRandom.current().nextDouble() < group.chance) {
+                    list.add(Compost.createItemStack(group));
+                }
+            });
+            Collections.shuffle(list);
+            for (ItemStack itemStack : list) {
+                ((ComposterBlockEntity)Objects.requireNonNull(world.getBlockEntity(pos))).inventory.set(list.indexOf(itemStack), itemStack).copy();
             }
-        });
-        Collections.shuffle(list);
-        for (ItemStack itemStack : list) {
-            itemStacks.set(list.indexOf(itemStack), itemStack).copyWithCount(itemStack.getCount());
+            world.setBlockState(pos, state.cycle(LEVEL), Block.NOTIFY_ALL);
+            world.playSound(null, pos, SoundEvents.BLOCK_COMPOSTER_READY, SoundCategory.BLOCKS, 1.0f, 1.0f);
         }
     }
 

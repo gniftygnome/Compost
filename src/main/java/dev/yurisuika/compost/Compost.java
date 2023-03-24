@@ -124,11 +124,6 @@ public class Compost implements ModInitializer {
         return itemStack;
     }
 
-    public static void setGroup(int group, String item, double chance, int min, int max) {
-        config.items[group] = new Group(item, chance, min, max);
-        saveConfig();
-    }
-
     public static Group getGroup(int group) {
         return ArrayUtils.get(config.items, group);
     }
