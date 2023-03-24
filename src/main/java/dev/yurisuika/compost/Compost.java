@@ -3,7 +3,10 @@ package dev.yurisuika.compost;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import dev.yurisuika.compost.block.entity.ComposterBlockEntity;
 import dev.yurisuika.compost.server.command.CompostCommand;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -31,8 +34,6 @@ public class Compost {
     public static Config config = new Config();
 
     public static class Config {
-
-        public boolean shuffle = true;
 
         public Group[] items = {
             new Group("minecraft:dirt", 1.0D, 1, 1),
@@ -124,16 +125,6 @@ public class Compost {
         return itemStack;
     }
 
-    public static void setShuffle(boolean bool) {
-        config.shuffle = bool;
-        saveConfig();
-    }
-
-    public static void setGroup(int group, String item, double chance, int min, int max) {
-        config.items[group] = new Group(item, chance, min, max);
-        saveConfig();
-    }
-
     public static Group getGroup(int group) {
         return ArrayUtils.get(config.items, group);
     }
@@ -143,25 +134,16 @@ public class Compost {
         saveConfig();
     }
 
-    public static void insertGroup(int group, String item, double chance, int min, int max) {
-        config.items = ArrayUtils.insert(group, config.items, new Group(item, chance, min, max));
-        saveConfig();
-    }
-
     public static void removeGroup(int group) {
         config.items = ArrayUtils.remove(config.items, group);
         saveConfig();
     }
 
-    public static void reverseGroups() {
-        ArrayUtils.reverse(config.items);
-        saveConfig();
-    }
-
-    public static void shuffleGroups() {
-        ArrayUtils.shuffle(config.items);
-        saveConfig();
-    }
+    public static BlockEntityType<ComposterBlockEntity> COMPOSTER = Registry.register(
+            Registry.BLOCK_ENTITY_TYPE,
+            new Identifier("compost", "composter"),
+            BlockEntityType.Builder.create(ComposterBlockEntity::new, Blocks.COMPOSTER).build(null)
+    );
 
     @Mod.EventBusSubscriber(modid = "compost")
     public static class CommonForgeEvents {
