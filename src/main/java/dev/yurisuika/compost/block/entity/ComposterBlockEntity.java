@@ -3,7 +3,6 @@ package dev.yurisuika.compost.block.entity;
 import dev.yurisuika.compost.Compost;
 import dev.yurisuika.compost.block.ComposterBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -22,11 +21,6 @@ import java.util.stream.IntStream;
 public class ComposterBlockEntity extends LootableContainerBlockEntity implements SidedInventory {
 
     public DefaultedList<ItemStack> inventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
-
-    private ComposterBlockEntity(BlockEntityType<?> type) {
-        super(type);
-        this.inventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
-    }
 
     public ComposterBlockEntity() {
         super(Compost.COMPOSTER);
@@ -106,8 +100,7 @@ public class ComposterBlockEntity extends LootableContainerBlockEntity implement
     @Override
     public void markDirty() {
         if (this.isEmpty()) {
-            BlockState state = this.getCachedState();
-            ComposterBlock.emptyComposter(state, this.world, this.pos);
+            ComposterBlock.emptyComposter(this.getCachedState(), this.world, this.pos);
         }
     }
 
