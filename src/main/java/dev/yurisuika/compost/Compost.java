@@ -12,13 +12,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.File;
@@ -140,11 +143,9 @@ public class Compost {
         saveConfig();
     }
 
-    public static BlockEntityType<ComposterBlockEntity> COMPOSTER = Registry.register(
-            Registries.BLOCK_ENTITY_TYPE,
-            new Identifier("compost", "composter"),
-            BlockEntityType.Builder.create(ComposterBlockEntity::new, Blocks.COMPOSTER).build(null)
-    );
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, "compost");
+
+    public static final RegistryObject<BlockEntityType<ComposterBlockEntity>> COMPOSTER = BLOCK_ENTITIES.register("composter", () -> BlockEntityType.Builder.create(ComposterBlockEntity::new, Blocks.COMPOSTER).build(null));
 
     @Mod.EventBusSubscriber(modid = "compost")
     public static class CommonForgeEvents {
@@ -163,6 +164,8 @@ public class Compost {
         loadConfig();
 
         MinecraftForge.EVENT_BUS.register(this);
+
+        BLOCK_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
 }
