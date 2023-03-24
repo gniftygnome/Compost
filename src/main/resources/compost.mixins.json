@@ -5,9 +5,9 @@
   "refmap": "compost.refmap.json",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "block.BlocksMixin",
     "block.ComposterBlockInvoker",
     "block.ComposterBlockMixin",
-    "block.entity.HopperBlockEntityMixin",
     "command.argument.ItemStackArgumentAccessor"
   ],
   "client": [
