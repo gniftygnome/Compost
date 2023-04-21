@@ -41,8 +41,7 @@ public class ComposterBlock extends net.minecraft.block.ComposterBlock implement
         ItemStack itemStack = player.getStackInHand(hand);
         if (i < 8 && ITEM_TO_LEVEL_INCREASE_CHANCE.containsKey(itemStack.getItem())) {
             if (i < 7 && !world.isClient) {
-                BlockState blockState = ComposterBlockInvoker.invokeAddToComposter(state, world, pos, itemStack);
-                world.syncWorldEvent(1500, pos, state != blockState ? 1 : 0);
+                world.syncWorldEvent(1500, pos, state != ComposterBlockInvoker.invokeAddToComposter(state, world, pos, itemStack) ? 1 : 0);
                 if (!player.abilities.creativeMode) {
                     itemStack.decrement(1);
                 }
