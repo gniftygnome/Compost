@@ -147,6 +147,18 @@ public class Compost implements ModInitializer {
 
     public static BlockEntityType<ComposterBlockEntity> COMPOSTER;
 
+    public static void registerBlockEntityTypes() {
+        COMPOSTER = Registry.register(
+                Registry.BLOCK_ENTITY_TYPE,
+                new Identifier("compost", "composter"),
+                BlockEntityType.Builder.create(ComposterBlockEntity::new, Blocks.COMPOSTER).build(null)
+        );
+    }
+
+    public static void registerCommands() {
+        CommandRegistrationCallback.EVENT.register(CompostCommand::register);
+    }
+
     @Override
     public void onInitialize() {
         if (!file.exists()) {
@@ -154,13 +166,8 @@ public class Compost implements ModInitializer {
         }
         loadConfig();
 
-        CommandRegistrationCallback.EVENT.register(CompostCommand::register);
-
-        COMPOSTER = Registry.register(
-                Registry.BLOCK_ENTITY_TYPE,
-                new Identifier("compost", "composter"),
-                BlockEntityType.Builder.create(ComposterBlockEntity::new, Blocks.COMPOSTER).build(null)
-        );
+        registerBlockEntityTypes();
+        registerCommands();
     }
 
 }
