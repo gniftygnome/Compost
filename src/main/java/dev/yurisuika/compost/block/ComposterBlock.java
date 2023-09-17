@@ -1,7 +1,6 @@
 package dev.yurisuika.compost.block;
 
 import com.google.common.collect.Lists;
-import dev.yurisuika.compost.Compost;
 import dev.yurisuika.compost.block.entity.ComposterBlockEntity;
 import dev.yurisuika.compost.mixin.block.ComposterBlockInvoker;
 import net.minecraft.block.Block;
@@ -30,6 +29,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static dev.yurisuika.compost.client.option.CompostConfig.*;
+
 public class ComposterBlock extends net.minecraft.block.ComposterBlock implements BlockEntityProvider {
 
     public ComposterBlock(Settings settings) {
@@ -56,7 +57,7 @@ public class ComposterBlock extends net.minecraft.block.ComposterBlock implement
             return ActionResult.success(world.isClient);
         }
         if (i == 8) {
-            ComposterBlock.emptyFullComposter(state, world, pos);
+            emptyFullComposter(state, world, pos);
             return ActionResult.success(world.isClient);
         }
         return ActionResult.PASS;
@@ -73,7 +74,7 @@ public class ComposterBlock extends net.minecraft.block.ComposterBlock implement
                 world.spawnEntity(itemEntity);
             }
         }
-        BlockState blockState = ComposterBlock.emptyComposter(state, world, pos);
+        BlockState blockState = emptyComposter(state, world, pos);
         world.playSound(null, pos, SoundEvents.BLOCK_COMPOSTER_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f);
         return blockState;
     }
@@ -88,9 +89,9 @@ public class ComposterBlock extends net.minecraft.block.ComposterBlock implement
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (state.get(LEVEL) == 7) {
             List<ItemStack> list = Lists.newArrayList();
-            Arrays.stream(Compost.config.items).forEach(group -> {
+            Arrays.stream(config.items).forEach(group -> {
                 if(ThreadLocalRandom.current().nextDouble() < group.chance) {
-                    list.add(Compost.createItemStack(group));
+                    list.add(createItemStack(group));
                 }
             });
             Collections.shuffle(list);
