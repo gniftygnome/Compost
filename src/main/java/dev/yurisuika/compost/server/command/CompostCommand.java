@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
-import static dev.yurisuika.compost.Compost.*;
+import static dev.yurisuika.compost.client.option.CompostConfig.*;
 import static net.minecraft.server.command.CommandManager.*;
 
 public class CompostCommand {
@@ -50,7 +50,7 @@ public class CompostCommand {
                         .requires(source -> source.hasPermissionLevel(4))
                         .then(literal("query")
                                 .executes(context -> {
-                                    for (Group group : config.items) {
+                                    for (Config.Group group : config.items) {
                                         context.getSource().sendFeedback(new TranslatableText("commands.compost.groups.query", ArrayUtils.indexOf(config.items, group) + 1, createItemStack(group).toHoverableText(), new DecimalFormat("0.###############").format(BigDecimal.valueOf(group.chance).multiply(BigDecimal.valueOf(100))), group.min, group.max), false);
                                     }
                                     return 1;
@@ -90,7 +90,7 @@ public class CompostCommand {
                                                 return 0;
                                             } else {
                                                 int number = IntegerArgumentType.getInteger(context, "group") - 1;
-                                                Group group = getGroup(number);
+                                                Config.Group group = getGroup(number);
                                                 removeGroup(number);
                                                 context.getSource().sendFeedback(new TranslatableText("commands.compost.groups.remove", createItemStack(group).toHoverableText(), new DecimalFormat("0.###############").format(BigDecimal.valueOf(group.chance).multiply(BigDecimal.valueOf(100))), group.min, group.max), true);
                                                 return 1;
